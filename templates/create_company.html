@@ -1,0 +1,53 @@
+<!-- create_company.html -->
+
+{% extends 'base.html' %}  <!-- Assuming you have a base template with Bootstrap CDN included -->
+
+{% block content %}
+<div class="container">
+    <h1>Create Company</h1>
+    <form method="POST" class="form-horizontal">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label class="control-label col-sm-2">Company Name</label>
+            <div class="col-sm-10">
+                {{ form.company_name(class="form-control") }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Manufacturing Site</label>
+            <div class="col-sm-10">
+                {{ form.manufacturing_site(class="form-control") }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Address</label>
+            <div class="col-sm-10">
+                {{ form.address(class="form-control") }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Country</label>
+            <div class="col-sm-10">
+                {{ form.country(class="form-control") }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Offered Services</label>
+            <div class="col-sm-10">
+                {{ form.offered_services(class="form-control") }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2">Manufactured Product Type</label>
+            <div class="col-sm-10">
+                {{ form.manufactured_product_type(class="form-control") }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

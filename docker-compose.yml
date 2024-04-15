@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/company_record
+    depends_on:
+      - db
+    environment:
+      FLASK_APP: wsgi.py
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: password
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_NAME: company_record_db
+      FLASK_ENV: development
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: company_record_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

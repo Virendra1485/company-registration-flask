@@ -1,0 +1,29 @@
+[
+  {
+    "sterile_liq_name": "Vials"
+  },
+  {
+    "sterile_liq_name": "Syrings"
+  },
+  {
+    "sterile_liq_name": "Ampouls"
+  },
+  {
+    "sterile_liq_name": "Spray"
+  },
+  {
+    "sterile_liq_name": "Drops"
+  },
+  {
+    "sterile_liq_name": "Single dose"
+  },
+  {
+    "sterile_liq_name": "Bottles"
+  },
+  {
+    "sterile_liq_name": "Ophthalmic Ointments*"
+  },
+  {
+    "sterile_liq_name": "Other*"
+  }
+]

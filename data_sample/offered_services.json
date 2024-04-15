@@ -1,0 +1,32 @@
+[
+  {
+    "service_name": "GMP Warehouse"
+  },
+  {
+    "service_name": "QC Lab - Micro"
+  },
+  {
+    "service_name": "QC Lab - Physical/Chemical"
+  },
+  {
+    "service_name": "QC Lab - Biological"
+  },
+  {
+    "service_name": "QP Release"
+  },
+  {
+    "service_name": "Development/ Pilot Production"
+  },
+  {
+    "service_name": "API production"
+  },
+  {
+    "service_name": "Bulk Production"
+  },
+  {
+    "service_name": "Packaging"
+  },
+  {
+    "service_name": "Other*"
+  }
+]

@@ -1,0 +1,44 @@
+[
+  {
+    "sec_packaging_name": "Bottles"
+  },
+  {
+    "sec_packaging_name": "Blisters"
+  },
+  {
+    "sec_packaging_name": "Sache"
+  },
+  {
+    "sec_packaging_name": "Spray"
+  },
+  {
+    "sec_packaging_name": "Syrings"
+  },
+  {
+    "sec_packaging_name": "Single dose"
+  },
+  {
+    "sec_packaging_name": "Ampouls"
+  },
+  {
+    "sec_packaging_name": "Plastic vials"
+  },
+  {
+    "sec_packaging_name": "Glass vials"
+  },
+  {
+    "sec_packaging_name": "Tubes"
+  },
+  {
+    "sec_packaging_name": "Suppositories"
+  },
+  {
+    "sec_packaging_name": "Bundling Packs"
+  },
+  {
+    "sec_packaging_name": "Hospital packs"
+  },
+  {
+    "sec_packaging_name": "Other*"
+  }
+]

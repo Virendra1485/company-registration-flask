@@ -1,0 +1,409 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    table th {
+        text-align: center;
+        border: 1px solid #ccc;
+        position: relative;
+    }
+    .scroll-container {
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    .sub-th {
+        width: 200px;
+        border: 1px solid #ccc;
+        text-align: center;
+    }
+</style>
+<div class="scroll-container">
+    <table>
+        <thead>
+        <th>com</th>
+        <th>manufactured Site name</th>
+        <th>address</th>
+        <th>Country</th>
+        <th>
+            <h6 style="text-align: center;">Offered services</h6>
+            <div style="display: flex;">
+                {% for key, value in form.offered_choice.choices %}
+                <div class="sub-th" style="border: 1px solid #ccc;">
+                    <label>{{value}}
+                    </label><br>
+                </div>
+                {% endfor %}
+            </div>
+        </th>
+        <th>
+            <h6 style="text-align: center;">Manufactured Product Types</h6>
+            <div style="display: flex;">
+                {% for key, value in form.manufactured_product_type.choices %}
+                <div class="sub-th" style="border: 1px solid #ccc;">
+                    <label>{{value}}
+                    </label><br>
+                </div>
+                {% endfor %}
+            </div>
+        </th>
+        <th>
+            <h6 style="text-align: center;">Accreditations</h6>
+            <div style="display: flex;">
+                {% for key, value in form.accreditations.choices %}
+                <div class="sub-th" style="border: 1px solid #ccc;">
+                    <label>{{value}}
+                    </label><br>
+                </div>
+                {% endfor %}
+            </div>
+        </th>
+        <th>
+            <h6 style="text-align: center;">Sterile Liquide</h6>
+            <div style="display: flex;">
+                {% for key, value in form.sterile_liquide.choices %}
+                <div class="sub-th" style="border: 1px solid #ccc;">
+                    <label>{{value}}
+                    </label><br>
+                </div>
+                {% endfor %}
+            </div>
+        </th>
+        <th>
+            <h6 style="text-align: center;">Sterile Lyophilized</h6>
+            <div style="display: flex;">
+                {% for key, value in form.sterile_lyophilized.choices %}
+                <div class="sub-th" style="border: 1px solid #ccc;">
+                    <label>{{value}}
+                    </label><br>
+                </div>
+                {% endfor %}
+            </div>
+        </th>
+        <th>
+            <h6 style="text-align: center;">Non Sterile Liquid</h6>
+            <div style="display: flex;">
+                {% for key, value in form.non_sterile_liquid.choices %}
+                <div class="sub-th" style="border: 1px solid #ccc;">
+                    <label>{{value}}
+                    </label><br>
+                </div>
+                {% endfor %}
+            </div>
+        </th>
+        <th>
+            <h6 style="text-align: center;">Non Sterile Solid</h6>
+            <div style="display: flex;">
+                {% for key, value in form.non_sterile_solid.choices %}
+                <div class="sub-th" style="border: 1px solid #ccc;">
+                    <label>{{value}}
+                    </label><br>
+                </div>
+                {% endfor %}
+            </div>
+        </th>
+        <th>
+            <h6 style="text-align: center;">Non Sterile Semi Solid</h6>
+            <div style="display: flex;">
+                {% for key, value in form.non_sterile_semi_solid.choices %}
+                <div class="sub-th" style="border: 1px solid #ccc;">
+                    <label>{{value}}
+                    </label><br>
+                </div>
+                {% endfor %}
+            </div>
+        </th>
+        <th>
+            <h6 style="text-align: center;">Primary Packaging</h6>
+            <div style="display: flex;">
+                {% for key, value in form.primary_packaging.choices %}
+                <div class="sub-th" style="border: 1px solid #ccc;">
+                    <label>{{value}}
+                    </label><br>
+                </div>
+                {% endfor %}
+            </div>
+        </th>
+        <th>
+            <h6 style="text-align: center;">Secondary Packaging</h6>
+            <div style="display: flex;">
+                {% for key, value in form.secondary_packaging.choices %}
+                <div class="sub-th" style="border: 1px solid #ccc;">
+                    <label>{{value}}
+                    </label><br>
+                </div>
+                {% endfor %}
+            </div>
+        </th>
+        </thead>
+        <tbody>
+        {% for detail in context.get("details") %}
+        <form method="POST" action="/update_company/{{detail.id}}">
+            {{ form.hidden_tag() }}
+            <tr>
+                <td class="sub-th"><input type="text" name="cmo" value="{{detail.cmo}}"></td>
+                <td class="sub-th"><input type="text" name="manufacturing_site" value="{{detail.manufacturing_site}}">
+                </td>
+                <td class="sub-th"><input type="text" name="address" value="{{detail.address}}"></td>
+                <td class="sub-th">
+                    <select name="country">
+                        {% for key, value in form.country.choices %}
+                        <option value="{{ key }}" {% if key== detail.country.name %} selected {% endif %}>
+                            {{ value }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <!--                <td class="sub-th" name="manufacturing_site">{{detail.manufacturing_site}}</td>-->
+                <!--                <td class="sub-th" name="address">{{detail.address}}</td>-->
+                <!--                <td class="sub-th" name="country">{{detail.country.value}}</td>-->
+                <td class="sub-th">
+                    <div style="display: flex; flex-wrap: wrap;">
+                        {% for service in context.get("services") %}
+                        <div class="sub-th">
+                            <input type="checkbox" name="offered_choice" value="{{ service.id }}"
+                                   id="offered_choice_{{ service.id }}" class="form-check-input" {% if service in
+                                   detail.offered_choice.all() %} checked {% endif %}>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </td>
+                <td class="sub-th">
+                    <div style="display: flex; flex-wrap: wrap;">
+                        {% for product_type in context.get("prod_types") %}
+                        <div class="sub-th">
+                            <input type="checkbox" name="manufactured_product_type" value="{{ product_type.id }}"
+                                   id="manufactured_product_type_{{ product_type.id }}" class="form-check-input" {% if
+                                   product_type in detail.manufactured_product_type.all() %} checked {% endif %}>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </td>
+                <td class="sub-th">
+                    <div style="display: flex; flex-wrap: wrap;">
+                        {% for accreditations in context.get("all_accreditations") %}
+                        <div class="sub-th">
+                            <input type="checkbox" name="accreditations" value="{{ accreditations.id }}"
+                                   id="accreditations_{{ accreditations.id }}" class="form-check-input" {% if
+                                   accreditations in detail.accreditations.all() %} checked {% endif %}>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </td>
+                <td class="sub-th">
+                    <div style="display: flex; flex-wrap: wrap;">
+                        {% for sterile_liquide in context.get("all_sterile_liquides") %}
+                        <div class="sub-th">
+                            <input type="checkbox" name="sterile_liquide" value="{{ sterile_liquide.id }}"
+                                   id="sterile_liquide_{{ sterile_liquide.id }}" class="form-check-input" {% if
+                                   sterile_liquide in
+                                   detail.sterile_liquide.all() %} checked {% endif %}>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </td>
+                <td class="sub-th">
+                    <div style="display: flex; flex-wrap: wrap;">
+                        {% for sterile_lyophilized in context.get("all_sterile_lyophilized") %}
+                        <div class="sub-th">
+                            <input type="checkbox" name="sterile_lyophilized" value="{{ sterile_lyophilized.id }}"
+                                   id="sterile_lyophilized_{{ sterile_lyophilized.id }}" class="form-check-input" {% if
+                                   sterile_lyophilized in
+                                   detail.sterile_lyophilized.all() %} checked {% endif %}>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </td>
+                <td class="sub-th">
+                    <div style="display: flex; flex-wrap: wrap;">
+                        {% for non_sterile_liquid in context.get("all_non_sterile_liquides") %}
+                        <div class="sub-th">
+                            <input type="checkbox" name="non_sterile_liquid" value="{{ non_sterile_liquid.id }}"
+                                   id="non_sterile_liquid_{{ non_sterile_liquid.id }}" class="form-check-input" {% if
+                                   non_sterile_liquid in detail.non_sterile_liquide.all() %} checked {% endif %}>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </td>
+                <td class="sub-th">
+                    <div style="display: flex; flex-wrap: wrap;">
+                        {% for non_sterile_solid in context.get("all_non_sterile_solids") %}
+                        <div class="sub-th">
+                            <input type="checkbox" name="non_sterile_solid" value="{{ non_sterile_solid.id }}"
+                                   id="non_sterile_solid_{{ non_sterile_solid.id }}" class="form-check-input" {% if
+                                   non_sterile_solid in
+                                   detail.non_sterile_solid.all() %} checked {% endif %}>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </td>
+
+                <td class="sub-th">
+                    <div style="display: flex; flex-wrap: wrap;">
+                        {% for non_sterile_semi_solid in context.get("all_non_sterile_semi_solid") %}
+                        <div class="sub-th">
+                            <input type="checkbox" name="non_sterile_semi_solid" value="{{ non_sterile_semi_solid.id }}"
+                                   id="non_sterile_semi_solid_{{ non_sterile_semi_solid.id }}" class="form-check-input"
+                                   {%
+                                   if non_sterile_semi_solid in
+                                   detail.non_sterile_semi_solid.all() %} checked {% endif %}>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </td>
+                <td class="sub-th">
+                    <div style="display: flex; flex-wrap: wrap;">
+                        {% for primary_packaging in context.get("all_primary_packaging") %}
+                        <div class="sub-th">
+                            <input type="checkbox" name="primary_packaging" value="{{ primary_packaging.id }}"
+                                   id="primary_packaging_{{ primary_packaging.id }}" class="form-check-input" {% if
+                                   primary_packaging in
+                                   detail.primary_packaging.all() %} checked {% endif %}>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </td>
+                <td class="sub-th">
+                    <div style="display: flex; flex-wrap: wrap;">
+                        {% for secondary_packaging in context.get("all_secondary_packaging") %}
+                        <div class="sub-th">
+                            <input type="checkbox" name="secondary_packaging" value="{{ secondary_packaging.id }}"
+                                   id="secondary_packaging_{{ secondary_packaging.id }}" class="form-check-input" {% if
+                                   secondary_packaging in
+                                   detail.secondary_packaging.all() %} checked {% endif %}>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </td>
+                <td>
+                    <button type="submit">update</button>
+                </td>
+            </tr>
+
+        </form>
+        {% endfor %}
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <td><input type="text" name="cmo"></td>
+            <td><input type="text" name="manufacturing_site"></td>
+            <td><input type="text" name="address"></td>
+            <td style="width: 200px;">{{form.country}}</td>
+            <td>
+                <div style="display: flex;">
+                    {% for key, value in form.offered_choice.choices %}
+                    <div class="sub-th">
+                        <label>
+                            <input type="checkbox" name="offered_choice" value="{{key}}">
+                        </label><br>
+                    </div>
+                    {% endfor %}
+                </div>
+            </td>
+            <td>
+                <div style="display: flex;">
+                    {% for key, value in form.manufactured_product_type.choices %}
+                    <div class="sub-th">
+                        <label>
+                            <input type="checkbox" name="manufactured_product_type" value="{{key}}">
+                        </label><br>
+                    </div>
+                    {% endfor %}
+                </div>
+            </td>
+            <td>
+                <div style="display: flex;">
+                    {% for key, value in form.accreditations.choices %}
+                    <div class="sub-th">
+                        <label>
+                            <input type="checkbox" name="accreditations" value="{{key}}">
+                        </label><br>
+                    </div>
+                    {% endfor %}
+                </div>
+            </td>
+            <td>
+                <div style="display: flex;">
+                    {% for key, value in form.sterile_liquide.choices %}
+                    <div class="sub-th">
+                        <label>
+                            <input type="checkbox" name="sterile_liquide" value="{{key}}">
+                        </label><br>
+                    </div>
+                    {% endfor %}
+                </div>
+            </td>
+            <td>
+                <div style="display: flex;">
+                    {% for key, value in form.sterile_lyophilized.choices %}
+                    <div class="sub-th">
+                        <label>
+                            <input type="checkbox" name="sterile_lyophilized" value="{{key}}">
+                        </label><br>
+                    </div>
+                    {% endfor %}
+                </div>
+            </td>
+            <td>
+                <div style="display: flex;">
+                    {% for key, value in form.non_sterile_liquid.choices %}
+                    <div class="sub-th">
+                        <label>
+                            <input type="checkbox" name="non_sterile_liquid" value="{{key}}">
+                        </label><br>
+                    </div>
+                    {% endfor %}
+                </div>
+            </td>
+            <td>
+                <div style="display: flex;">
+                    {% for key, value in form.non_sterile_solid.choices %}
+                    <div class="sub-th">
+                        <label>
+                            <input type="checkbox" name="non_sterile_solid" value="{{key}}">
+                        </label><br>
+                    </div>
+                    {% endfor %}
+                </div>
+            </td>
+            <td>
+                <div style="display: flex;">
+                    {% for key, value in form.non_sterile_semi_solid.choices %}
+                    <div class="sub-th">
+                        <label>
+                            <input type="checkbox" name="non_sterile_semi_solid" value="{{key}}">
+                        </label><br>
+                    </div>
+                    {% endfor %}
+                </div>
+            </td>
+            <td>
+                <div style="display: flex;">
+                    {% for key, value in form.primary_packaging.choices %}
+                    <div class="sub-th">
+                        <label>
+                            <input type="checkbox" name="primary_packaging" value="{{key}}">
+                        </label><br>
+                    </div>
+                    {% endfor %}
+                </div>
+            </td>
+            <td>
+                <div style="display: flex;">
+                    {% for key, value in form.secondary_packaging.choices %}
+                    <div class="sub-th">
+                        <label>
+                            <input type="checkbox" name="secondary_packaging" value="{{key}}">
+                        </label><br>
+                    </div>
+                    {% endfor %}
+                </div>
+            </td>
+            <td>
+                <button type="submit">submit</button>
+            </td>
+        </form>
+        </tbody>
+    </table>
+</div>
+{{form.errors}}
+{% endblock %}

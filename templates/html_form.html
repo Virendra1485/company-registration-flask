@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .scroll-container {
+        width: 100%;
+        overflow-x: auto; /* Add horizontal scroll bar */
+    }
+    table {
+        width: auto; /* Set table width to auto */
+        table-layout: fixed; /* Fix table layout */
+    }
+    th, td {
+        padding: 10px;
+        white-space: nowrap; /* Prevent line breaks within cells */
+    }
+    th:nth-child(3) {
+        width: 300px; /* Adjust width for the third column (Address) */
+    }
+    /* Add more styles as needed for other columns */
+</style>
+<div class="scroll-container">
+    <form>
+        <table>
+            <thead>
+            <th scope="col">CMO</th>
+            <th scope="col">Manufacturing Site</th>
+            <th scope="col">Address</th>
+            <th scope="col">Country</th>
+            <th scope="col">Offered Services</th>
+            <th scope="col">Manufactured product types</th>
+            <th scope="col">Accreditations</th>
+            <th scope="col">Accreditations</th>
+            <th scope="col">Accreditations</th>
+            <!-- Add more <th> elements as needed -->
+            </thead>
+            <tbody>
+            <td>
+                <input type="text" class="form-control" id="cmo" name="cmo" style="width: 150px;" required>
+            </td>
+            <td>
+                <input type="text" class="form-control" id="manufacturing_site" name="manufacturing_site"
+                       style="width: 150px;" required>
+            </td>
+            <td>
+                <input type="text" class="form-control" id="address" name="address" style="width: 150px;" required>
+            </td>
+            <td>
+<!--                <label for="country">Country</label>-->
+                <select class="form-control" id="country" name="country" style="width: 150px;" required>
+                    <option value="USA">USA</option>
+                    <option value="Canada">Canada</option>
+                    <option value="UK">UK</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </td>
+            <td>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <input type="radio" id="product1" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product2" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+                <div>
+                    <input type="radio" id="product3" name="manufactured_product_type" value="Product 1" required>
+                    <label for="product1">Product 1</label>
+                </div>
+            </td>
+            <td>
+                <input type="text" class="form-control" id="accreditations" name="accreditations" required>
+            </td>
+            <td>
+                <input type="text" class="form-control" id="accreditations" name="accreditations" required>
+            </td>
+            <!-- Add more <td> elements as needed -->
+            </tbody>
+        </table>
+    </form>
+</div>
+{% endblock %}

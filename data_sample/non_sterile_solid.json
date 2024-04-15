@@ -1,0 +1,35 @@
+[
+  {
+    "solid_name": "Tablets"
+  },
+  {
+    "solid_name": "Film Coated Tablets"
+  },
+  {
+    "solid_name": "Bi-/Multi-layer Tablets"
+  },
+  {
+    "solid_name": "Sugar Coated Tablets"
+  },
+  {
+    "solid_name": "Effervescent Tablets"
+  },
+  {
+    "solid_name": "ODT - Orally Disintegrating Tablets"
+  },
+  {
+    "solid_name": "Pallets"
+  },
+  {
+    "solid_name": "Powder"
+  },
+  {
+    "solid_name": "Capsules"
+  },
+  {
+    "solid_name": "Granulates"
+  },
+  {
+    "solid_name": "Other*"
+  }
+]

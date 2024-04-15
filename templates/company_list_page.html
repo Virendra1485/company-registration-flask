@@ -1,0 +1,413 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    add-sty {
+        width: 500px;
+    }
+    #table {
+        width: 100%;
+        table-layout: fixed;
+    }
+    #table th,
+    #table td {
+        width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .scroll-container {
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    .scroll-container > div {
+        display: inline-block;
+        padding: 10px;
+        margin: 5px;
+        border: 1px solid #ccc;
+    }
+    .form-scroll-container {
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    .form-scroll-container > div {
+        display: inline-block;
+        padding: 10px;
+        margin: 5px;
+        border: 1px solid #ccc;
+    }
+    .required::after {
+        content: "*"; /* Display an asterisk after the label */
+        color: red; /* Change the color to red */
+        margin-left: 5px; /* Add some spacing between the label and asterisk */
+    }
+    .table td:hover {
+            overflow: visible;
+            white-space: normal;
+        }
+    .table td:hover {
+        overflow: visible;
+        white-space: normal;
+    }
+</style>
+<div class="container">
+    <center><h1>Companies</h1></center>
+    <div class="scroll-container">
+        <table class="table " id="table">
+            <thead>
+            <tr>
+                <th scope="col" id="cmo-header">CMO</th>
+                <th scope="col" id="manufacturing-site-header">Manufacturing Site</th>
+                <th scope="col" id="address-header">Address</th>
+                <th scope="col" id="country-header">Country</th>
+                <th scope="col" id="offered-services-header">Offered Services</th>
+                <th scope="col" id="manufactured-product-types-header">Manufactured Product Types</th>
+                <th scope="col" id="accreditations-header">Accreditations</th>
+                <th scope="col" id="bulk-production-header">Bulk Production</th>
+                <th scope="col" id="primary-packaging-header">Primary Packaging</th>
+                <th scope="col" id="secondary-packaging-header">Secondary Packaging</th>
+                <th scope="col" id="secondary-packaging-header-">Secondary Packaging</th>
+                <th scope="col" id="secondary-packaging-header--">Secondary Packaging</th>
+                <th scope="col" id="secondary-packaging-header---">Secondary Packaging</th>
+                <th scope="col" id="secondary-packaging-header----">Secondary Packaging</th>
+            </tr>
+            </thead>
+            <tbody id="table-body">
+            {% for detail in context.get("details") %}
+            <tr>
+                <td id="cmo" style="width:150px;">
+                    <a href="{{ url_for('.update_company_details', company_id=detail.id) }}" style="text-decoration: none;">{{ detail.cmo }}</a>
+
+                </td>
+                <td id="manufacturing-site">{{ detail.manufacturing_site }}</td>
+                <td id="address" style="width: 250px;">{{ detail.address }}</td>
+                <td id="country">{{ detail.country.value }}</td>
+                <td>
+                    {% for service in context.get("services") %}
+                    <div class="form-check">
+                        <input type="checkbox" name="offered_services" value="{{ service.id }}"
+                               id="service_{{ service.id }}" class="form-check-input"
+                               {% if service in detail.offered_choice.all() %} checked {% endif %}
+                               disabled>
+                        <label for="service_{{ service.id }}">{{ service.service_name
+                            }}</label>
+                    </div>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for product_type in context.get("prod_types") %}
+                    <div class="form-check">
+                        <input type="checkbox" name="manufactured_product_types" value="{{ product_type.id }}"
+                               id="product_type_{{ product_type.id }}" class="form-check-input"
+                               {% if product_type in detail.manufactured_product_type.all() %} checked {% endif %}
+                               disabled>
+                        <label for="product_type_{{ product_type.id }}">{{
+                            product_type.product_name }}</label>
+                    </div>
+                    {% endfor %}
+                </td>
+                <td id="accreditations">
+                    {% for accreditation in context.get("all_accreditations") %}
+                    <div class="form-check">
+                        <input type="checkbox" name="accreditations" value="{{ accreditation.id }}"
+                               id="accreditation_{{ accreditation.id }}" class="form-check-input"
+                               {% if accreditation in detail.accreditations.all() %} checked {% endif %}
+                               disabled>
+                        <label for="accreditation_{{ accreditation.id }}"
+                        >{{ accreditation.accreditation_name }}</label>
+                    </div>
+                    {% endfor %}
+                </td>
+                <td id="sterile_liquide">
+                    {% for sterile_liq in context.get("all_sterile_liquides") %}
+                    <div class="form-check" style="width: 325px;">
+                        <input type="checkbox" name="sterile_liquides" value="{{ sterile_liq.id }}"
+                               id="sterile_liq_{{ sterile_liq.id }}" class="form-check-input"
+                               {% if sterile_liq in detail.sterile_liquide.all() %} checked {% endif %}
+                               disabled>
+                        <label for="sterile_liq_{{ sterile_liq.id }}">{{
+                            sterile_liq.sterile_liq_name }}</label>
+                    </div>
+                    {% endfor %}
+                </td>
+                <td id="sterile_lyophilized">
+                    {% for sterile_lyo in context.get("all_sterile_lyophilized") %}
+                    <div class="form-check">
+                        <input type="checkbox" name="sterile_lyophilized" value="{{ sterile_lyo.id }}"
+                               id="sterile_lyo_{{ sterile_lyo.id }}" class="form-check-input"
+                               {% if sterile_lyo in detail.sterile_lyophilized.all() %} checked {% endif %}
+                               disabled>
+                        <label for="sterile_lyo_{{ sterile_lyo.id }}">{{
+                            sterile_lyo.lyophilized_name }}</label>
+                    </div>
+                    {% endfor %}
+                </td>
+                <td id="non_sterile_liquide">
+                    {% for non_str_liq in context.get("all_non_sterile_liquides") %}
+                    <div class="form-check">
+                        <input type="checkbox" name="non_sterile_liquide" value="{{ non_str_liq.id }}"
+                               id="non_sterile_liq_{{ non_str_liq.id }}" class="form-check-input"
+                               {% if non_str_liq in detail.non_sterile_liquide.all() %} checked {% endif %}
+                               disabled>
+                        <label for="non_sterile_liq_{{ non_str_liq.id }}">{{
+                            non_str_liq.liquide_name }}</label>
+                    </div>
+                    {% endfor %}
+                </td>
+                <td id="non_sterile_solid">
+                    {% for non_str_solid in context.get("all_non_sterile_solids") %}
+                    <div class="form-check">
+                        <input type="checkbox" name="non_sterile_solids" value="{{ non_str_solid.id }}"
+                               id="non_sterile_solid_{{ non_str_solid.id }}" class="form-check-input"
+                               {% if non_str_solid in detail.non_sterile_solid.all() %} checked {% endif %}
+                               disabled>
+                        <label for="non_sterile_solid_{{ non_str_solid.id }}">{{
+                            non_str_solid.solid_name }}</label>
+                    </div>
+                    {% endfor %}
+                </td>
+                <td id="non_sterile_semi_solid">
+                    {% for semi_solid in context.get("all_non_sterile_semi_solid") %}
+                    <div class="form-check">
+                        <input type="checkbox" name="non_sterile_semi_solid" value="{{ semi_solid.id }}"
+                               id="non_sterile_semi_solid_{{ semi_solid.id }}" class="form-check-input"
+                               {% if semi_solid in detail.non_sterile_semi_solid.all() %} checked {% endif %}
+                               disabled>
+                        <label for="non_sterile_semi_solid_{{ semi_solid.id }}">{{
+                            semi_solid.semi_solid_name }}</label>
+                    </div>
+                    {% endfor %}
+                </td>
+                <td id="primary_packaging">
+                    {% for packaging in context.get("all_primary_packaging") %}
+                    <div class="form-check">
+                        <input type="checkbox" name="primary_packaging" value="{{ packaging.id }}"
+                               id="packaging_{{ packaging.id }}" class="form-check-input"
+                               {% if packaging in detail.primary_packaging.all() %} checked {% endif %}
+                               disabled>
+                        <label for="packaging_{{ packaging.id }}">{{
+                            packaging.pri_packaging_name }}</label>
+                    </div>
+                    {% endfor %}
+                </td>
+                <td id="secondary_packaging">
+                    {% for packaging in context.get("all_secondary_packaging") %}
+                    <div class="form-check">
+                        <input type="checkbox" name="secondary_packaging" value="{{ packaging.id }}"
+                               id="secondary_packaging_{{ packaging.id }}" class="form-check-input"
+                               {% if packaging in detail.secondary_packaging.all() %} checked {% endif %}
+                               disabled>
+                        <label for="secondary_packaging_{{ packaging.id }}">{{
+                            packaging.sec_packaging_name }}</label>
+                    </div>
+                    {% endfor %}
+                </td>
+
+
+                <td id="primary-packaging">{{ detail.primary_packaging }}</td>
+                <td id="secondary-packaging">{{ detail.secondary_packaging }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="form-container" style="display: none;">
+        <div class="form-scroll-container">
+            <table>
+                <thead>
+                <tr>
+                    <th scope="col" class="required">CMO</th>
+                    <th scope="col" class="required">Manufacturing Site</th>
+                    <th scope="col" class="required">Address</th>
+                    <th scope="col" class="required">Country</th>
+                    <th scope="col" class="required">Offered Services</th>
+                    <th scope="col" class="required">Manufactured product types</th>
+                    <th scope="col" class="required" style="width: 500px; margin-right: 200px;">Accreditations</th>
+                    <th scope="col" class="required">Sterile Liquid</th>
+                    <th scope="col" class="required">Sterile Lyophilized</th>
+                    <th scope="col" class="required">Non Sterile Liquid</th>
+                    <th scope="col" class="required">Non Sterile Solid</th>
+                    <th scope="col" class="required">Non Sterile Semi Solid</th>
+                    <th scope="col" class="required">Primary Packaging</th>
+                    <th scope="col" class="required">Secondary Packaging</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        <td>
+                            <div style="width: 195px; margin-right: 10px;">
+                                {{ form.cmo(class="form-control") }}
+                            </div>
+                        </td>
+
+                        <td>
+                            <div style="width: 190px; margin-right: 10px;">
+                                {{ form.manufacturing_site(class="form-control") }}
+                            </div>
+                        </td>
+                        <td>
+                            <div style="width: 185px; margin-right: 10px;">
+                                {{ form.address(class="form-control") }}
+                            </div>
+                        </td>
+                        <td>
+                            <div style="width: 190px; margin-right: 10px;">
+                                {{ form.country(class="form-control") }}
+                            </div>
+                        </td>
+                        <td style="width: 700px; margin-right: 10px;">
+                            {% for choice, label in form.offered_choice.choices %}
+                            <div class="form-check" style="width: 280px; margin-right: 10px;">
+                                <input type="checkbox" name="offered_choice" value="{{ choice }}"
+                                       id="offered_choice_{{ loop.index }}" class="form-check-input">
+                                <label for="offered_choice_{{ loop.index }}" class="form-check-label">{{ label
+                                    }}</label>
+                            </div>
+                            {% endfor %}
+                        </td>
+                        <td style="width: 190px; margin-right: 10px;">
+                            {% for choice, label in form.manufactured_product_type.choices %}
+                            <div class="form-check" style="width: 250px; margin-right: 10px;">
+                                <input type="checkbox" name="manufactured_product_type" value="{{ choice }}"
+                                       id="manufactured_product_type_{{ loop.index }}" class="form-check-input">
+                                <label for="manufactured_product_type_{{ loop.index }}" class="form-check-label">{{
+                                    label
+                                    }}</label>
+                            </div>
+                            {% endfor %}
+                        </td>
+                        <td style="width: 190px; margin-right: 10px;">
+                            {% for choice, label in form.accreditations.choices %}
+                            <div class="form-check" style="margin-right: 20px;">
+                                <input type="checkbox" name="accreditations" value="{{ choice }}"
+                                       id="accreditations_{{ loop.index }}" class="form-check-input">
+                                <label for="accreditations_{{ loop.index }}" class="form-check-label">{{ label
+                                    }}</label>
+                            </div>
+                            {% endfor %}
+                        </td>
+                        <td style="width: 190px; margin-right: 10px;">
+                            {% for choice, label in form.sterile_liquide.choices %}
+                            <div class="form-check">
+                                <input type="checkbox" name="sterile_liquide" value="{{ choice }}"
+                                       id="sterile_liquide_{{ loop.index }}" class="form-check-input">
+                                <label for="sterile_liquide_{{ loop.index }}" class="form-check-label">{{ label
+                                    }}</label>
+                            </div>
+                            {% endfor %}
+                        </td>
+                        <td style="width: 190px; margin-right: 10px;">
+                            {% for choice, label in form.sterile_lyophilized.choices %}
+                            <div class="form-check">
+                                <input type="checkbox" name="sterile_lyophilized" value="{{ choice }}"
+                                       id="sterile_lyophilized_{{ loop.index }}" class="form-check-input">
+                                <label for="sterile_lyophilized_{{ loop.index }}" class="form-check-label">{{ label
+                                    }}</label>
+                            </div>
+                            {% endfor %}
+                        </td>
+                        <td style="width: 190px; margin-right: 10px;">
+                            {% for choice, label in form.non_sterile_liquid.choices %}
+                            <div class="form-check">
+                                <input type="checkbox" name="non_sterile_liquid" value="{{ choice }}"
+                                       id="non_sterile_liquid_{{ loop.index }}" class="form-check-input">
+                                <label for="non_sterile_liquid_{{ loop.index }}" class="form-check-label">{{ label
+                                    }}</label>
+                            </div>
+                            {% endfor %}
+                        </td>
+                        <td style="width: 190px; margin-right: 10px;">
+                            {% for choice, label in form.non_sterile_solid.choices %}
+                            <div class="form-check">
+                                <input type="checkbox" name="non_sterile_solid" value="{{ choice }}"
+                                       id="non_sterile_solid_{{ loop.index }}" class="form-check-input">
+                                <label for="non_sterile_solid_{{ loop.index }}" class="form-check-label">{{ label
+                                    }}</label>
+                            </div>
+                            {% endfor %}
+                        </td>
+                        <td style="width: 190px; margin-right: 10px;">
+                            {% for choice, label in form.non_sterile_semi_solid.choices %}
+                            <div class="form-check">
+                                <input type="checkbox" name="non_sterile_semi_solid" value="{{ choice }}"
+                                       id="non_sterile_semi_solid_{{ loop.index }}" class="form-check-input">
+                                <label for="non_sterile_semi_solid_{{ loop.index }}" class="form-check-label">{{ label
+                                    }}</label>
+                            </div>
+                            {% endfor %}
+                        </td>
+                        <td style="width: 190px; margin-right: 10px;">
+                            {% for choice, label in form.primary_packaging.choices %}
+                            <div class="form-check">
+                                <input type="checkbox" name="primary_packaging" value="{{ choice }}"
+                                       id="primary_packaging_{{ loop.index }}" class="form-check-input">
+                                <label for="primary_packaging_{{ loop.index }}" class="form-check-label">{{ label
+                                    }}</label>
+                            </div>
+                            {% endfor %}
+                        </td>
+                        <td style="width: 190px; margin-right: 10px;">
+                            {% for choice, label in form.secondary_packaging.choices %}
+                            <div class="form-check">
+                                <input type="checkbox" name="secondary_packaging" value="{{ choice }}"
+                                       id="secondary_packaging_{{ loop.index }}" class="form-check-input">
+                                <label for="secondary_packaging_{{ loop.index }}" class="form-check-label">{{ label
+                                    }}</label>
+                            </div>
+                            {% endfor %}
+                        </td>
+
+                        <td>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </td>
+                    </form>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <button type="button" id="toggle-form" class="btn btn-primary" style="margin-top: 20px;">Add New</button>
+    <button type="button" class="btn btn-primary" style="margin-top: 20px;">Update</button>
+
+    <script>
+        document.getElementById('toggle-form').addEventListener('click', function() {
+            var formContainer = document.getElementById('form-container');
+            var tableBody = document.getElementById('table');
+            if (formContainer.style.display === 'none') {
+                formContainer.style.display = 'block';
+                tableBody.style.display = 'none';
+            } else {
+                formContainer.style.display = 'none';
+                table.style.display = 'table-row-group';
+            }
+        });
+
+        // Get the table element
+        const table = document.getElementById('table');
+
+        // Calculate and set the width of each th and td based on content width
+        const setColumnWidths = () => {
+            const headers = table.querySelectorAll('th');
+            const cells = table.querySelectorAll('td');
+
+            headers.forEach(header => {
+                const headerWidth = header.scrollWidth;
+                header.style.width = `${headerWidth}px`;
+            });
+
+            cells.forEach(cell => {
+                const cellWidth = cell.scrollWidth;
+                cell.style.width = `${cellWidth}px`;
+            });
+        };
+
+        // Call setColumnWidths when the page is loaded and when it's resized
+        window.addEventListener('load', setColumnWidths);
+        window.addEventListener('resize', setColumnWidths);
+    </script>
+</div>
+{% endblock %}

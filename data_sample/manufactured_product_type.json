@@ -1,0 +1,41 @@
+[
+  {
+    "product_name": "Biologic"
+  },
+  {
+    "product_name": "Chemical"
+  },
+  {
+    "product_name": "Herbal"
+  },
+  {
+    "product_name": "Vaccines"
+  },
+  {
+    "product_name": "Onco/Cytotoxic"
+  },
+  {
+    "product_name": "Hormons"
+  },
+  {
+    "product_name": "Probiotics"
+  },
+  {
+    "product_name": "Cosmetics"
+  },
+  {
+    "product_name": "Beta Lactam"
+  },
+  {
+    "product_name": "Food Supplements"
+  },
+  {
+    "product_name": "VET - Veterinarian"
+  },
+  {
+    "product_name": "Narcotics"
+  },
+  {
+    "product_name": "Other*"
+  }
+]
