@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # General Config
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY", "42cc0195388a1a12be49a9d41a1d991c")
 FLASK_APP = os.getenv("FLASK_APP")
 FLASK_ENV = os.getenv("FLASK_ENV")
 
